@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#fbfaf7" />
+    <meta name="description" content="Meet Ele, SAS’s friendly high-tech building steward." />
+    <title>Meet Ele</title>
+    <style>
+      :root {
+        color: #10243d;
+        font-family: Nunito, ui-rounded, "Arial Rounded MT Bold", system-ui, sans-serif;
+        background: #fbfaf7;
+      }
+
+      * { box-sizing: border-box; }
+      body { margin: 0; min-width: 320px; }
+      button { font: inherit; }
+
+      .page {
+        position: relative;
+        min-height: 100svh;
+        overflow: hidden;
+        background: #fbfaf7;
+      }
+
+      .glow {
+        position: absolute;
+        border-radius: 999px;
+        pointer-events: none;
+      }
+
+      .glow-one { width: 448px; height: 448px; left: -192px; top: 48px; background: #d7f0f58c; filter: blur(100px); }
+      .glow-two { width: 544px; height: 544px; right: -176px; bottom: -144px; background: #f4ccd180; filter: blur(110px); }
+      .glow-three { width: 320px; height: 320px; left: 50%; top: 0; background: #ccecf48c; filter: blur(90px); }
+
+      .layout {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: minmax(310px, .72fr) minmax(560px, 1.28fr);
+        align-items: center;
+        gap: 48px;
+        width: 100%;
+        max-width: 1380px;
+        min-height: 100svh;
+        margin: 0 auto;
+        padding: 32px 56px;
+      }
+
+      .eyebrow {
+        margin: 0 0 24px;
+        color: #3c91ad;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .32em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0;
+        color: #10243d;
+        font-size: clamp(5rem, 9vw, 8rem);
+        font-weight: 950;
+        letter-spacing: -.075em;
+        line-height: .72;
+      }
+
+      h1 span { display: block; margin-top: 24px; color: #d1283f; }
+
+      .intro {
+        max-width: 500px;
+        margin: 44px 0 0;
+        color: #63768d;
+        font-size: clamp(1.25rem, 2.2vw, 1.4rem);
+        font-weight: 650;
+        line-height: 1.85;
+      }
+
+      .stage {
+        position: relative;
+        display: flex;
+        min-height: 760px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+      }
+
+      .blob {
+        position: absolute;
+        width: 106%;
+        height: 94%;
+        border-radius: 46%;
+        background: #ccecf499;
+        filter: blur(58px);
+      }
+
+      .dot, .spark { position: absolute; z-index: 1; pointer-events: none; }
+      .dot { border-radius: 999px; }
+      .dot-pink { width: 144px; height: 144px; right: -7%; top: 3%; background: #d1283f70; filter: blur(42px); }
+      .spark { font-size: 44px; }
+      .spark-pink { left: -3%; top: 13%; color: #d1283fb3; filter: drop-shadow(0 8px 18px #d1283f3d); }
+      .spark-gold { right: -2%; top: 44%; color: #16bff5a6; font-size: 54px; filter: blur(.4px); }
+
+      .card {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        width: 94%;
+        max-width: 740px;
+        flex-direction: column;
+        align-items: center;
+        padding: 44px 32px 32px;
+        overflow: hidden;
+        border: 1px solid #fff;
+        border-radius: 40px;
+        background: #fff;
+        box-shadow:
+          0 5px 14px rgba(16, 36, 61, .14),
+          -24px 36px 86px rgba(97, 190, 213, .20),
+          28px 42px 94px rgba(239, 102, 139, .13);
+        cursor: pointer;
+        transition: transform .3s ease, box-shadow .3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-4px);
+        box-shadow:
+          0 7px 18px rgba(16, 36, 61, .16),
+          -28px 42px 96px rgba(97, 190, 213, .23),
+          32px 48px 104px rgba(239, 102, 139, .16);
+      }
+
+      .ellie-frame {
+        position: relative;
+        width: 100%;
+        height: 500px;
+      }
+
+      .foot-shadow {
+        position: absolute;
+        z-index: 0;
+        left: 26%;
+        bottom: 3%;
+        width: 48%;
+        height: 32px;
+        border-radius: 999px;
+        background: rgba(41, 71, 93, .10);
+        filter: blur(18px);
+      }
+
+      .ellie {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        filter: drop-shadow(0 22px 22px #25374424);
+        transition: opacity .22s ease, transform .5s ease;
+      }
+
+      .ellie.changing { opacity: 0; transform: translateY(8px) scale(.98); }
+      .card:hover .ellie { transform: scale(1.015); }
+      .card.reacting .ellie { animation: wiggle .7s ease-in-out; }
+
+      .caption {
+        position: relative;
+        z-index: 3;
+        max-width: 88%;
+        min-height: 50px;
+        margin: 0;
+        padding: 14px 22px;
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, .9);
+        background: rgba(255, 255, 255, .95);
+        box-shadow: 0 3px 9px rgba(16, 36, 61, .10), 0 18px 44px rgba(91, 164, 185, .14);
+        color: #536a82;
+        font-size: 16px;
+        font-weight: 800;
+        line-height: 1.4;
+        text-align: center;
+      }
+
+      @keyframes wiggle {
+        0%, 100% { transform: rotate(0) scale(1); }
+        25% { transform: rotate(-2deg) scale(1.025); }
+        75% { transform: rotate(2deg) scale(1.025); }
+      }
+
+      @media (max-width: 900px) {
+        .layout { grid-template-columns: 1fr; gap: 8px; padding: 48px 24px; }
+        .copy { text-align: center; }
+        .eyebrow { margin-bottom: 18px; }
+        h1 { font-size: clamp(4.6rem, 19vw, 7rem); }
+        .intro { margin: 42px auto 0; }
+        .stage { min-height: 600px; }
+        .ellie-frame { height: 420px; }
+      }
+
+      @media (max-width: 560px) {
+        .layout { padding: 38px 14px; }
+        .stage { min-height: 520px; }
+        .blob { width: 100%; height: 86%; }
+        .card { width: 96%; padding: 26px 14px 20px; border-radius: 30px; }
+        .ellie-frame { height: 340px; }
+        .caption { max-width: 94%; font-size: 14px; }
+        .dot-pink { width: 56px; height: 56px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .card, .ellie { transition: none; }
+        .card.reacting .ellie { animation: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="glow glow-one"></div>
+      <div class="glow glow-two"></div>
+      <div class="glow glow-three"></div>
+
+      <div class="layout">
+        <section class="copy">
+          <p class="eyebrow">Your high-tech steward</p>
+          <h1>Meet<span>Ele.</span></h1>
+          <p class="intro">Hello! I’m Ele. I keep an ear on our building and I’m so happy you stopped by.</p>
+        </section>
+
+        <section class="stage">
+          <div class="blob"></div>
+          <div class="dot dot-pink"></div>
+          <div class="spark spark-pink">✦</div>
+          <div class="spark spark-gold">✦</div>
+
+          <button class="card" id="ele-card" type="button" aria-label="Replay Ele’s current gesture">
+            <div class="ellie-frame">
+              <img class="ellie" id="ele" src="assets/ele-hq-wave.webp" alt="Ele, SAS’s high-tech elephant steward, waving hello" />
+              <div class="foot-shadow" aria-hidden="true"></div>
+            </div>
+          </button>
+          <p class="caption" id="caption" aria-live="polite">Hello, hello! I saved my biggest wave just for you.</p>
+        </section>
+      </div>
+    </main>
+
+    <script>
+      const gestures = [
+        ["wave", "Hello, hello! I saved my biggest wave just for you.", "Ele, SAS’s high-tech elephant steward, waving hello"],
+        ["cheer", "Hooray! You just made Ele’s whole day!", "Ele, SAS’s high-tech elephant steward, cheering"],
+        ["celebrate", "Happy trunk dance! This calls for a celebration.", "Ele, SAS’s high-tech elephant steward, celebrating"],
+        ["think", "Hmm… Ele is thinking of something wonderful.", "Ele, SAS’s high-tech elephant steward, thinking"],
+        ["listen", "I’m all ears! Ele is listening very carefully.", "Ele, SAS’s high-tech elephant steward, listening"],
+        ["rest", "Shhh… even high-tech elephants need a tiny power nap.", "Ele, SAS’s high-tech elephant steward, resting"],
+        ["clap", "Clap, clap! Ele is cheering you on.", "Ele, SAS’s high-tech elephant steward, clapping happily"],
+        ["peekaboo", "Peekaboo! Ele can still see you.", "Ele, SAS’s high-tech elephant steward, playing peekaboo"],
+        ["bow", "So lovely to meet you! Ele takes a little bow.", "Ele, SAS’s high-tech elephant steward, making a polite bow"]
+      ];
+
+      const card = document.querySelector("#ele-card");
+      const image = document.querySelector("#ele");
+      const caption = document.querySelector("#caption");
+      let current = 0;
+      let changing = false;
+
+      function replay() {
+        card.classList.remove("reacting");
+        void card.offsetWidth;
+        card.classList.add("reacting");
+        window.setTimeout(() => card.classList.remove("reacting"), 700);
+      }
+
+      function showNext() {
+        if (changing) return;
+        changing = true;
+        image.classList.add("changing");
+        window.setTimeout(() => {
+          current = (current + 1) % gestures.length;
+          const [name, message, alt] = gestures[current];
+          image.src = `assets/ele-hq-${name}.webp`;
+          image.alt = alt;
+          caption.textContent = message;
+          image.classList.remove("changing");
+          replay();
+          changing = false;
+        }, 220);
+      }
+
+      card.addEventListener("click", replay);
+      window.setInterval(showNext, 4000);
+      gestures.slice(1).forEach(([name]) => {
+        const preload = new Image();
+        preload.src = `assets/ele-hq-${name}.webp`;
+      });
+    </script>
+  </body>
+</html>
