@@ -27,13 +27,12 @@
       .glow {
         position: absolute;
         border-radius: 999px;
-        filter: blur(50px);
         pointer-events: none;
       }
 
-      .glow-one { width: 280px; height: 280px; left: -100px; top: 80px; background: #dff3f7cc; }
-      .glow-two { width: 350px; height: 350px; right: -90px; bottom: -30px; background: #f9dce7b3; }
-      .glow-three { width: 230px; height: 230px; left: 54%; top: 50px; background: #d8f1f5e6; }
+      .glow-one { width: 448px; height: 448px; left: -192px; top: 48px; background: #d7f0f58c; filter: blur(100px); }
+      .glow-two { width: 544px; height: 544px; right: -176px; bottom: -144px; background: #f7d2df80; filter: blur(110px); }
+      .glow-three { width: 320px; height: 320px; left: 50%; top: 0; background: #ccecf48c; filter: blur(90px); }
 
       .layout {
         position: relative;
@@ -50,11 +49,11 @@
       }
 
       .eyebrow {
-        margin: 0 0 22px;
-        color: #147da4;
-        font-size: 13px;
-        font-weight: 900;
-        letter-spacing: .22em;
+        margin: 0 0 24px;
+        color: #3c91ad;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .32em;
         text-transform: uppercase;
       }
 
@@ -70,12 +69,12 @@
       h1 span { display: block; margin-top: 24px; color: #ef668b; }
 
       .intro {
-        max-width: 510px;
-        margin: 48px 0 0;
-        color: #47637f;
-        font-size: clamp(1.25rem, 2.2vw, 1.55rem);
+        max-width: 500px;
+        margin: 44px 0 0;
+        color: #63768d;
+        font-size: clamp(1.25rem, 2.2vw, 1.4rem);
         font-weight: 650;
-        line-height: 1.65;
+        line-height: 1.85;
       }
 
       .stage {
@@ -90,19 +89,19 @@
 
       .blob {
         position: absolute;
-        width: 94%;
-        height: 88%;
+        width: 106%;
+        height: 94%;
         border-radius: 46%;
-        background: #dff3f7;
+        background: #ccecf499;
+        filter: blur(58px);
       }
 
       .dot, .spark { position: absolute; z-index: 1; pointer-events: none; }
       .dot { border-radius: 999px; }
-      .dot-pink { width: 80px; height: 80px; right: 1%; top: 8%; background: #f3b2c5cc; }
-      .dot-gold { width: 48px; height: 48px; left: 0; bottom: 9%; background: #f4c968e6; }
+      .dot-pink { width: 144px; height: 144px; right: -7%; top: 3%; background: #f3b2c58c; filter: blur(42px); }
       .spark { font-size: 44px; }
-      .spark-pink { left: 5%; top: 13%; color: #ef668b; }
-      .spark-gold { right: 3%; top: 44%; color: #eab22e; font-size: 54px; }
+      .spark-pink { left: -3%; top: 13%; color: #ef668bb3; filter: drop-shadow(0 8px 18px #ef668b3d); }
+      .spark-gold { right: -2%; top: 44%; color: #eab22ea6; font-size: 54px; filter: blur(.4px); }
 
       .card {
         position: relative;
@@ -114,15 +113,24 @@
         align-items: center;
         padding: 44px 32px 32px;
         overflow: hidden;
-        border: 1px solid #ffffffcc;
+        border: 1px solid #fff;
         border-radius: 40px;
-        background: #fffffff0;
-        box-shadow: 0 32px 80px #1e495c2b;
+        background: #fff;
+        box-shadow:
+          0 5px 14px rgba(16, 36, 61, .14),
+          -24px 36px 86px rgba(97, 190, 213, .20),
+          28px 42px 94px rgba(239, 102, 139, .13);
         cursor: pointer;
         transition: transform .3s ease, box-shadow .3s ease;
       }
 
-      .card:hover { transform: translateY(-4px); box-shadow: 0 38px 90px #1e495c38; }
+      .card:hover {
+        transform: translateY(-4px);
+        box-shadow:
+          0 7px 18px rgba(16, 36, 61, .16),
+          -28px 42px 96px rgba(97, 190, 213, .23),
+          32px 48px 104px rgba(239, 102, 139, .16);
+      }
 
       .ellie-frame {
         position: relative;
@@ -130,7 +138,21 @@
         height: 500px;
       }
 
+      .foot-shadow {
+        position: absolute;
+        z-index: 0;
+        left: 26%;
+        bottom: 3%;
+        width: 48%;
+        height: 32px;
+        border-radius: 999px;
+        background: rgba(41, 71, 93, .10);
+        filter: blur(18px);
+      }
+
       .ellie {
+        position: relative;
+        z-index: 1;
         width: 100%;
         height: 100%;
         object-fit: contain;
@@ -150,9 +172,10 @@
         margin: 0;
         padding: 14px 22px;
         border-radius: 18px;
-        background: white;
-        box-shadow: 0 12px 30px #1e495c24;
-        color: #47637f;
+        border: 1px solid rgba(255, 255, 255, .9);
+        background: rgba(255, 255, 255, .95);
+        box-shadow: 0 3px 9px rgba(16, 36, 61, .10), 0 18px 44px rgba(91, 164, 185, .14);
+        color: #536a82;
         font-size: 16px;
         font-weight: 800;
         line-height: 1.4;
@@ -183,7 +206,6 @@
         .ellie-frame { height: 340px; }
         .caption { max-width: 94%; font-size: 14px; }
         .dot-pink { width: 56px; height: 56px; }
-        .dot-gold { width: 36px; height: 36px; }
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -208,13 +230,13 @@
         <section class="stage">
           <div class="blob"></div>
           <div class="dot dot-pink"></div>
-          <div class="dot dot-gold"></div>
           <div class="spark spark-pink">✦</div>
           <div class="spark spark-gold">✦</div>
 
           <button class="card" id="ellie-card" type="button" aria-label="Replay Ellie’s current gesture">
             <div class="ellie-frame">
               <img class="ellie" id="ellie" src="assets/ellie-hq-wave.webp" alt="Ellie the blue baby elephant waving hello" />
+              <div class="foot-shadow" aria-hidden="true"></div>
             </div>
           </button>
           <p class="caption" id="caption" aria-live="polite">Hello, hello! I saved my biggest wave just for you.</p>
