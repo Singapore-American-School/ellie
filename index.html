@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#fbfaf7" />
+    <meta name="description" content="Meet Ellie, a cheerful little elephant." />
+    <title>Meet Ellie</title>
+    <style>
+      :root {
+        color: #10243d;
+        font-family: Nunito, ui-rounded, "Arial Rounded MT Bold", system-ui, sans-serif;
+        background: #fbfaf7;
+      }
+
+      * { box-sizing: border-box; }
+      body { margin: 0; min-width: 320px; }
+      button { font: inherit; }
+
+      .page {
+        position: relative;
+        min-height: 100svh;
+        overflow: hidden;
+        background: #fbfaf7;
+      }
+
+      .glow {
+        position: absolute;
+        border-radius: 999px;
+        filter: blur(50px);
+        pointer-events: none;
+      }
+
+      .glow-one { width: 280px; height: 280px; left: -100px; top: 80px; background: #dff3f7cc; }
+      .glow-two { width: 350px; height: 350px; right: -90px; bottom: -30px; background: #f9dce7b3; }
+      .glow-three { width: 230px; height: 230px; left: 54%; top: 50px; background: #d8f1f5e6; }
+
+      .layout {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: minmax(310px, .72fr) minmax(560px, 1.28fr);
+        align-items: center;
+        gap: 48px;
+        width: 100%;
+        max-width: 1380px;
+        min-height: 100svh;
+        margin: 0 auto;
+        padding: 32px 56px;
+      }
+
+      .eyebrow {
+        margin: 0 0 22px;
+        color: #147da4;
+        font-size: 13px;
+        font-weight: 900;
+        letter-spacing: .22em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0;
+        color: #10243d;
+        font-size: clamp(5rem, 9vw, 8rem);
+        font-weight: 950;
+        letter-spacing: -.075em;
+        line-height: .72;
+      }
+
+      h1 span { display: block; margin-top: 24px; color: #ef668b; }
+
+      .intro {
+        max-width: 510px;
+        margin: 48px 0 0;
+        color: #47637f;
+        font-size: clamp(1.25rem, 2.2vw, 1.55rem);
+        font-weight: 650;
+        line-height: 1.65;
+      }
+
+      .stage {
+        position: relative;
+        display: flex;
+        min-height: 760px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+      }
+
+      .blob {
+        position: absolute;
+        width: 94%;
+        height: 88%;
+        border-radius: 46%;
+        background: #dff3f7;
+      }
+
+      .dot, .spark { position: absolute; z-index: 1; pointer-events: none; }
+      .dot { border-radius: 999px; }
+      .dot-pink { width: 80px; height: 80px; right: 1%; top: 8%; background: #f3b2c5cc; }
+      .dot-gold { width: 48px; height: 48px; left: 0; bottom: 9%; background: #f4c968e6; }
+      .spark { font-size: 44px; }
+      .spark-pink { left: 5%; top: 13%; color: #ef668b; }
+      .spark-gold { right: 3%; top: 44%; color: #eab22e; font-size: 54px; }
+
+      .card {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        width: 94%;
+        max-width: 740px;
+        flex-direction: column;
+        align-items: center;
+        padding: 44px 32px 32px;
+        overflow: hidden;
+        border: 1px solid #ffffffcc;
+        border-radius: 40px;
+        background: #fffffff0;
+        box-shadow: 0 32px 80px #1e495c2b;
+        cursor: pointer;
+        transition: transform .3s ease, box-shadow .3s ease;
+      }
+
+      .card:hover { transform: translateY(-4px); box-shadow: 0 38px 90px #1e495c38; }
+
+      .ellie-frame {
+        position: relative;
+        width: 100%;
+        height: 500px;
+      }
+
+      .ellie {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        filter: drop-shadow(0 22px 22px #25374424);
+        transition: opacity .22s ease, transform .5s ease;
+      }
+
+      .ellie.changing { opacity: 0; transform: translateY(8px) scale(.98); }
+      .card:hover .ellie { transform: scale(1.015); }
+      .card.reacting .ellie { animation: wiggle .7s ease-in-out; }
+
+      .caption {
+        position: relative;
+        z-index: 3;
+        max-width: 88%;
+        min-height: 50px;
+        margin: 0;
+        padding: 14px 22px;
+        border-radius: 18px;
+        background: white;
+        box-shadow: 0 12px 30px #1e495c24;
+        color: #47637f;
+        font-size: 16px;
+        font-weight: 800;
+        line-height: 1.4;
+        text-align: center;
+      }
+
+      @keyframes wiggle {
+        0%, 100% { transform: rotate(0) scale(1); }
+        25% { transform: rotate(-2deg) scale(1.025); }
+        75% { transform: rotate(2deg) scale(1.025); }
+      }
+
+      @media (max-width: 900px) {
+        .layout { grid-template-columns: 1fr; gap: 8px; padding: 48px 24px; }
+        .copy { text-align: center; }
+        .eyebrow { margin-bottom: 18px; }
+        h1 { font-size: clamp(4.6rem, 19vw, 7rem); }
+        .intro { margin: 42px auto 0; }
+        .stage { min-height: 600px; }
+        .ellie-frame { height: 420px; }
+      }
+
+      @media (max-width: 560px) {
+        .layout { padding: 38px 14px; }
+        .stage { min-height: 520px; }
+        .blob { width: 100%; height: 86%; }
+        .card { width: 96%; padding: 26px 14px 20px; border-radius: 30px; }
+        .ellie-frame { height: 340px; }
+        .caption { max-width: 94%; font-size: 14px; }
+        .dot-pink { width: 56px; height: 56px; }
+        .dot-gold { width: 36px; height: 36px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .card, .ellie { transition: none; }
+        .card.reacting .ellie { animation: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="glow glow-one"></div>
+      <div class="glow glow-two"></div>
+      <div class="glow glow-three"></div>
+
+      <div class="layout">
+        <section class="copy">
+          <p class="eyebrow">A tiny hello</p>
+          <h1>Meet<span>Ellie.</span></h1>
+          <p class="intro">Hello! I’m Ellie. I’m so happy you stopped by.</p>
+        </section>
+
+        <section class="stage">
+          <div class="blob"></div>
+          <div class="dot dot-pink"></div>
+          <div class="dot dot-gold"></div>
+          <div class="spark spark-pink">✦</div>
+          <div class="spark spark-gold">✦</div>
+
+          <button class="card" id="ellie-card" type="button" aria-label="Replay Ellie’s current gesture">
+            <div class="ellie-frame">
+              <img class="ellie" id="ellie" src="assets/ellie-hq-wave.webp" alt="Ellie the blue baby elephant waving hello" />
+            </div>
+          </button>
+          <p class="caption" id="caption" aria-live="polite">Hello, hello! I saved my biggest wave just for you.</p>
+        </section>
+      </div>
+    </main>
+
+    <script>
+      const gestures = [
+        ["wave", "Hello, hello! I saved my biggest wave just for you.", "Ellie the blue baby elephant waving hello"],
+        ["cheer", "Hooray! You just made Ellie’s whole day!", "Ellie the blue baby elephant cheering"],
+        ["celebrate", "Happy trunk dance! This calls for a celebration.", "Ellie the blue baby elephant celebrating"],
+        ["think", "Hmm… Ellie is thinking of something wonderful.", "Ellie the blue baby elephant thinking"],
+        ["listen", "I’m all ears! Ellie is listening very carefully.", "Ellie the blue baby elephant listening"],
+        ["rest", "Shhh… even elephants need a tiny power nap.", "Ellie the blue baby elephant resting"]
+      ];
+
+      const card = document.querySelector("#ellie-card");
+      const image = document.querySelector("#ellie");
+      const caption = document.querySelector("#caption");
+      let current = 0;
+      let changing = false;
+
+      function replay() {
+        card.classList.remove("reacting");
+        void card.offsetWidth;
+        card.classList.add("reacting");
+        window.setTimeout(() => card.classList.remove("reacting"), 700);
+      }
+
+      function showNext() {
+        if (changing) return;
+        changing = true;
+        image.classList.add("changing");
+        window.setTimeout(() => {
+          current = (current + 1) % gestures.length;
+          const [name, message, alt] = gestures[current];
+          image.src = `assets/ellie-hq-${name}.webp`;
+          image.alt = alt;
+          caption.textContent = message;
+          image.classList.remove("changing");
+          replay();
+          changing = false;
+        }, 220);
+      }
+
+      card.addEventListener("click", replay);
+      window.setInterval(showNext, 4000);
+      gestures.slice(1).forEach(([name]) => {
+        const preload = new Image();
+        preload.src = `assets/ellie-hq-${name}.webp`;
+      });
+    </script>
+  </body>
+</html>
